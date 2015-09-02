@@ -16,6 +16,12 @@
     <Filter Include="Fichiers sources\Shaders">
       <UniqueIdentifier>{4e36f21c-2507-4149-a0c4-325875da7e5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\obj">
+      <UniqueIdentifier>{62d436f5-fa62-42d3-874a-1ac9ef10c51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\obj">
+      <UniqueIdentifier>{e8160add-c0cf-499c-9250-af9809d707c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\scop.fragmentshader">
@@ -35,6 +41,15 @@
     <ClInclude Include="include\vec3.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\obj\obj.h">
+      <Filter>Fichiers d%27en-tête\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="include\obj\obj_internal.h">
+      <Filter>Fichiers d%27en-tête\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="include\obj\obj_tokens.h">
+      <Filter>Fichiers d%27en-tête\obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -51,6 +66,60 @@
     </ClCompile>
     <ClCompile Include="src\vec3.c">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\control.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\obj_delete_data.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parser_die.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\obj_parse.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\obj_print_data.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_color.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_comment.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_line.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_normal.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_polygon.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_position.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_vec2.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\parse_vec3.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\add_vertex.c">
+      <Filter>Fichiers sources\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obj\tokens_utils.c">
+      <Filter>Fichiers sources\obj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

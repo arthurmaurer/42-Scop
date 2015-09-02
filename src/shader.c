@@ -1,11 +1,12 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+
 #include <fcntl.h>
 #include <io.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "scop.h"
+
+#define _CRT_SECURE_NO_DEPRECATE
 
 static char		*read_file(char const *path)
 {
@@ -86,10 +87,10 @@ GLuint			load_shaders(char const *vertex_shader_path, char const *fragment_shade
 	
 	vertex_shader_code = read_file(vertex_shader_path);
 	if (vertex_shader_code == NULL)
-		die("Could not open the vertex shader file.");
+		die("Could not read the vertex shader file.");
 	fragment_shader_code = read_file(fragment_shader_path);
 	if (fragment_shader_code == NULL)
-		die("Could not open the fragment shader file.");
+		die("Could not read the fragment shader file.");
 
 	compile_shader(vertex_shader, vertex_shader_code);
 	compile_shader(fragment_shader, fragment_shader_code);

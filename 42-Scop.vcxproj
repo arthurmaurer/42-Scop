@@ -41,13 +41,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\OpenGL\glfw-3.1.1.bin.WIN32\include;C:\OpenGL\glew-1.13.0\include;C:\Work\42-Scop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Work\42-Scop\include\obj;C:\Work\ftlst;C:\OpenGL\glfw-3.1.1.bin.WIN32\include;C:\OpenGL\glew-1.13.0\include;C:\Work\42-Scop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\OpenGL\glew-1.13.0\lib\Release\Win32;C:\OpenGL\glfw-3.1.1.bin.WIN32\lib-vc2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\ftlst\Release;C:\OpenGL\glew-1.13.0\lib\Release\Win32;C:\OpenGL\glfw-3.1.1.bin.WIN32\lib-vc2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ftlst.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:MSVCRT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -70,15 +70,36 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\matrix.h" />
+    <ClInclude Include="include\obj\obj.h" />
+    <ClInclude Include="include\obj\obj_internal.h" />
+    <ClInclude Include="include\obj\obj_tokens.h" />
     <ClInclude Include="include\scop.h" />
     <ClInclude Include="include\vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\control.c" />
+    <ClCompile Include="src\gfx.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\matrix.c" />
+    <ClCompile Include="src\obj\add_vertex.c" />
+    <ClCompile Include="src\obj\obj_delete_data.c" />
+    <ClCompile Include="src\obj\obj_parse.c" />
+    <ClCompile Include="src\obj\obj_print_data.c" />
+    <ClCompile Include="src\obj\parser_die.c" />
+    <ClCompile Include="src\obj\parse_color.c" />
+    <ClCompile Include="src\obj\parse_comment.c" />
+    <ClCompile Include="src\obj\parse_line.c" />
+    <ClCompile Include="src\obj\parse_normal.c" />
+    <ClCompile Include="src\obj\parse_polygon.c" />
+    <ClCompile Include="src\obj\parse_position.c" />
+    <ClCompile Include="src\obj\parse_vec2.c" />
+    <ClCompile Include="src\obj\parse_vec3.c" />
+    <ClCompile Include="src\obj\tokens_utils.c" />
+    <ClCompile Include="src\render.c" />
     <ClCompile Include="src\shader.c" />
     <ClCompile Include="src\util.c" />
     <ClCompile Include="src\vec3.c" />
+    <ClCompile Include="src\window.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

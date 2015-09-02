@@ -59,32 +59,89 @@ float	*look_at(float *matrix, t_vec3 const *eye, t_vec3 const *center, t_vec3 co
 	matrix[1] = u.x;
 	matrix[5] = u.y;
 	matrix[9] = u.z;
-	matrix[2] =-f.x;
-	matrix[6] =-f.y;
-	matrix[10] =-f.z;
-	matrix[12] =-vec3_dot(&s, eye);
-	matrix[13] =-vec3_dot(&u, eye);
+	matrix[2] = -f.x;
+	matrix[6] = -f.y;
+	matrix[10] = -f.z;
+	matrix[12] = -vec3_dot(&s, eye);
+	matrix[13] = -vec3_dot(&u, eye);
 	matrix[14] = vec3_dot(&f, eye);
 
 	return (matrix);
 }
-/*
-detail::tvec3<T, P> f(normalize(center - eye));
-detail::tvec3<T, P> s(normalize(cross(f, up)));
-detail::tvec3<T, P> u(cross(s, f));
 
-detail::tmat4x4<T, P> Result(1);
-Result[0][0] = s.x;
-Result[1][0] = s.y;
-Result[2][0] = s.z;
-Result[0][1] = u.x;
-Result[1][1] = u.y;
-Result[2][1] = u.z;
-Result[0][2] =-f.x;
-Result[1][2] =-f.y;
-Result[2][2] =-f.z;
-Result[3][0] =-dot(s, eye);
-Result[3][1] =-dot(u, eye);
-Result[3][2] = dot(f, eye);
-return Result;
-*/
+int				ft_cisvalid(int c, const char *to_avoid)
+{
+	while (*to_avoid != '\0')
+	{
+		if (*to_avoid == c)
+			return (0);
+		++to_avoid;
+	}
+	return (1);
+}
+
+static size_t	clean_string_get_word_count(char *str, const char *to_avoid)
+{
+	int			i;
+	int			j;
+	size_t		word_count;
+
+	i = 0;
+	j = 0;
+	word_count = 0;
+	while (str[i] != '\0')
+	{
+		if (!ft_cisvalid(str[i], to_avoid))
+			str[i] = '\0';
+		++i;
+	}
+	while (j < i)
+	{
+		if (j < i && str[j] != '\0' && ++word_count)
+		{
+			while (j < i && str[j] != '\0')
+				++j;
+		}
+		else
+			++j;
+	}
+	return (word_count);
+}
+
+char			**ft_split(const char *str, const char *to_avoid)
+{
+	size_t		i;
+	size_t		j;
+	size_t		word_count;
+	char		*tmp;
+	char		**ret;
+
+	i = 0;
+	j = 0;
+	tmp = strdup(str);
+	word_count = clean_string_get_word_count(tmp, to_avoid);
+	if (!(ret = NULL)
+			&& !(ret = (char**)malloc(sizeof(char *) * (word_count + 1))))
+		return (NULL);
+	ret[word_count] = NULL;
+	while (i < word_count)
+	{
+		while (tmp[j] == '\0')
+			++j;
+		ret[i] = strdup(tmp + j);
+		++i;
+		j += strlen(tmp + j);
+	}
+	free(tmp);
+	return (ret);
+}
+
+void		ft_free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
