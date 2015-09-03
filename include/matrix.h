@@ -15,6 +15,7 @@ void			matrix_identity(float *matrix);
 void			matrix_debug(float const *matrix);
 float			*matrix_translate(float *matrix, t_vec3 const *amount);
 float			*matrix_scale(float *matrix, t_vec3 const *amount);
+float			*matrix_scale_xyz(float *matrix, float amount);
 float			*matrix_rotate_x(float *dest, float amount);
 float			*matrix_rotate_y(float *dest, float amount);
 float			*matrix_rotate_z(float *dest, float amount);

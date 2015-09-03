@@ -21,7 +21,12 @@ GLFWwindow	*create_window(void)
 		die("Could not create the window.");
 
 	glfwMakeContextCurrent(window);
+
 	glfwSetKeyCallback(window, handle_keys);
+	glfwSetScrollCallback(window, handle_scroll);
+	glfwSetCursorPosCallback(window, handle_mouse_move);
+	glfwSetMouseButtonCallback(window, handle_mouse_button);
+
 	glewExperimental = 1;
 
 	if (glewInit() != GLEW_OK)
@@ -33,7 +38,11 @@ GLFWwindow	*create_window(void)
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	if (g_scop.wireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	return (window);
 }

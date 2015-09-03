@@ -1,9 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "obj_internal.h"
+#include <Windows.h>
 
 void	parser_die(const char *msg)
 {
-	printf("Parse error at line %u !\n%s\n", g_current_line, msg);
+	char	lol[500] = { 0 };
+	sprintf(lol, "Parse error at line %u !\n%s\n", g_current_line, msg);
+	OutputDebugString(lol);
 	exit(EXIT_FAILURE);
 }

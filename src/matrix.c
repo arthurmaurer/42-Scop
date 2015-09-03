@@ -141,6 +141,16 @@ float	*matrix_scale(float *dest, t_vec3 const *amount)
 	return (matrix_mult(dest, dest, scaling));
 }
 
+float	*matrix_scale_xyz(float *dest, float amount)
+{
+	t_vec3	vec;
+
+	vec.x = amount;
+	vec.y = amount;
+	vec.z = amount;
+	return (matrix_scale(dest, &vec));
+}
+
 float	*matrix_rotate_x(float *dest, float amount)
 {
 	float	rotation[16];

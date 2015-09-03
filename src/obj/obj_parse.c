@@ -21,7 +21,7 @@ t_obj_data		*obj_parse(const char *file_path)
 	t_obj_data	*data;
 
 	if (!(fp = fopen(file_path, "r"))
-		|| !(data = malloc(sizeof(t_obj_data)))
+		|| !(data = (t_obj_data*)malloc(sizeof(t_obj_data)))
 		|| !init_parser(data))
 		return (NULL);
 	while (fgets(line, BUFF_SIZE, fp) != NULL && ++g_current_line)

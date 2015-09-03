@@ -3,10 +3,13 @@
 #include "matrix.h"
 #include <stdlib.h>
 #include <string.h>
+#include <Windows.h>
+#include <stdio.h>
+#include <SOIL.h>
 
 extern t_scop	g_scop;
 
-void		toggleWireframeMode(void)
+void		toggle_wireframe_mode(void)
 {
 	if (g_scop.wireframe)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -16,75 +19,78 @@ void		toggleWireframeMode(void)
 	g_scop.wireframe = !g_scop.wireframe;
 }
 
+void		toggle_texturing(void)
+{
+	g_scop.texturing = !g_scop.texturing;
+	glUniform1i(g_scop.gfx.texturingUni, g_scop.texturing);
+}
+
+void		toggle_lighting(void)
+{
+	g_scop.lighting = !g_scop.lighting;
+	glUniform1i(g_scop.gfx.lightingUni, g_scop.lighting);
+}
+
+static void	buffer_load_poly(float *buffer, t_polygon const *poly)
+{
+	t_lstiter	iter;
+	unsigned	i;
+	t_vertex	*vertex;
+	t_vec3		color;
+	
+	color.x = (rand() % 1000) / 1000.0f;
+	color.y = (rand() % 1000) / 1000.0f;
+	color.z = (rand() % 1000) / 1000.0f;
+
+	i = 0;
+	init_iter(&iter, poly->vertices, increasing);
+	while (lst_iterator_next(&iter))
+	{
+		vertex = (t_vertex*)iter.data;
+
+		memcpy(buffer + i * 11, &vertex->position, sizeof(t_vec3));
+		memcpy(buffer + i * 11 + 3, &color, sizeof(t_vec3));
+		memcpy(buffer + i * 11 + 6, &vertex->uv, sizeof(t_vec2));
+		memcpy(buffer + i * 11 + 8, &vertex->normal, sizeof(t_vec3));
+		i++;
+	}
+}
+
 void		build_vertex_buffer(void)
 {
-	GLfloat	buffer_data[] = {
-		-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	// A	0
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	// B	1
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 1.0f,	// C	2
-		
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 1.0f,	// C	2
-		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 1.0f,	// D	3
-		-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	// A	0
-		
-		-0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	// E	4
-		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	// F	5
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	// G	6
-		
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	// G	6
-		0.5f, -0.5f, 0.5f,		1.0f, 1.0f, 1.0f,	// H	7
-		-0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	// E	4
-		
-		-0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	// E	4
-		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	// F	5
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	// B	1
-		
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	// B	1
-		-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	// A	0
-		-0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	// E	4
-		
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	// G	6
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 1.0f,	// C	2
-		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 1.0f,	// D	3
-		
-		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 1.0f,	// D	3
-		0.5f, -0.5f, 0.5f,		1.0f, 1.0f, 1.0f,	// H	7
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	// G	6
+	unsigned	i;
+	t_lstiter	iter;
+	float		*buffer_data;
+	unsigned	buffer_length;
 
-		-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	// A	0
-		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 1.0f,	// D	3
-		0.5f, -0.5f, 0.5f,		1.0f, 1.0f, 1.0f,	// H	7
-		
-		0.5f, -0.5f, 0.5f,		1.0f, 1.0f, 1.0f,	// H	7
-		-0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	// E	4
-		-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	// A	0
-		
-		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	// F	5
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	// B	1
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 1.0f,	// C	2
-		
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 1.0f,	// C	2
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	// G	6
-		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	// F	5
-	};
+	buffer_length = (3 + 3 + 2 + 3) * g_scop.vertex_count;
+	buffer_data = (float*)calloc(buffer_length, sizeof(float));
+
+	i = 0;
+	init_iter(&iter, g_scop.polygons, increasing);
+	while (lst_iterator_next(&iter))
+	{
+		buffer_load_poly(buffer_data + i * 11, (t_polygon*)iter.data);
+		i += 3;
+	}
 
 	glGenBuffers(1, &g_scop.gfx.vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, g_scop.gfx.vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(buffer_data), buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, buffer_length * sizeof(float), buffer_data, GL_STATIC_DRAW);
 }
 
 static void	setPositionAttrib(void)
 {
 	g_scop.gfx.posAttrib = glGetAttribLocation(g_scop.gfx.program, "position");
 	glEnableVertexAttribArray(g_scop.gfx.posAttrib);
-	glVertexAttribPointer(g_scop.gfx.posAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0);
+	glVertexAttribPointer(g_scop.gfx.posAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 11, 0);
 }
 
 static void	setColorAttrib(void)
 {
 	g_scop.gfx.colAttrib = glGetAttribLocation(g_scop.gfx.program, "color");
 	glEnableVertexAttribArray(g_scop.gfx.colAttrib);
-	glVertexAttribPointer(g_scop.gfx.colAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(sizeof(float) * 3));
+	glVertexAttribPointer(g_scop.gfx.colAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 11, (void*)(sizeof(float) * 3));
 }
 
 static void	setUVAttrib(void)
@@ -93,30 +99,45 @@ static void	setUVAttrib(void)
 
 	id = glGetAttribLocation(g_scop.gfx.program, "uv");
 	glEnableVertexAttribArray(id);
-	glVertexAttribPointer(id, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (void*)(sizeof(GLfloat) * 6));
+	glVertexAttribPointer(id, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 11, (void*)(sizeof(GLfloat) * 6));
 }
 
-void		set_view_matrix(void)
+static void	setNormalAttrib(void)
 {
-	t_vec3	eye;
-	t_vec3	center;
-	t_vec3	up;
+	GLuint	id;
 
-	g_scop.view_matrix = create_matrix();
+	id = glGetAttribLocation(g_scop.gfx.program, "normal");
+	glEnableVertexAttribArray(id);
+	glVertexAttribPointer(id, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 11, (void*)(sizeof(GLfloat) * 8));
+}
 
-	eye.x = 1.2f;
-	eye.y = 0.7f;
-	eye.z = 0.7f;
+static void	load_texture(void)
+{
+	int				width;
+	int				height;
+	unsigned char	*image;
 
-	center.x = 0.0f;
-	center.y = 0.0f;
-	center.z = 0.0f;
+	glGenTextures(1, &g_scop.gfx.texture);
 
-	up.x = 0.0f;
-	up.y = 0.0f;
-	up.z = 1.0f;
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, g_scop.gfx.texture);
+    image = SOIL_load_image("scenes/texture.png", &width, &height, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    SOIL_free_image_data(image);
+	glUniform1i(glGetUniformLocation(g_scop.gfx.program, "texture"), 0);
 
-	look_at(g_scop.view_matrix, &eye, &center, &up);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
+static void	set_light_uniforms(void)
+{
+	g_scop.gfx.lightPositionUni = glGetUniformLocation(g_scop.gfx.program, "lightPosition");
+	glUniform3f(g_scop.gfx.lightPositionUni, g_scop.light->position.x, g_scop.light->position.y, g_scop.light->position.z);
+	g_scop.gfx.lightColorUni = glGetUniformLocation(g_scop.gfx.program, "lightColor");
+	glUniform3f(g_scop.gfx.lightColorUni, g_scop.light->color.x, g_scop.light->color.y, g_scop.light->color.z);
 }
 
 void		launch(void)
@@ -136,11 +157,21 @@ void		launch(void)
 
 	setPositionAttrib();
 	setColorAttrib();
+	setUVAttrib();
+	setNormalAttrib();
 
-	set_view_matrix();
-	g_scop.model_matrix = create_matrix();
+	load_texture();
+
+	g_scop.view_matrix = create_matrix();
+	g_scop.model_matrix = matrix_scale_xyz(NULL, 0.2f);
 	g_scop.proj_matrix = matrix_perspective(deg_to_rad(60.0f), 800.0f / 600.0f, 0.1f, 1000.0f);
 	g_scop.gfx.mvpUni = glGetUniformLocation(g_scop.gfx.program, "mvp");
+	g_scop.gfx.model_matrix_uni = glGetUniformLocation(g_scop.gfx.program, "modelMatrix");
+
+	g_scop.gfx.texturingUni = glGetUniformLocation(g_scop.gfx.program, "texturing");
+	g_scop.gfx.lightingUni = glGetUniformLocation(g_scop.gfx.program, "lighting");
+
+	set_light_uniforms();
 
 	do
 	{

@@ -121,5 +121,8 @@
     <ClCompile Include="src\obj\tokens_utils.c">
       <Filter>Fichiers sources\obj</Filter>
     </ClCompile>
+    <ClCompile Include="src\light.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
