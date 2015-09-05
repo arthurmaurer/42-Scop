@@ -5,7 +5,7 @@
 #include <string.h>
 #include <Windows.h>
 #include <stdio.h>
-#include <SOIL.h>
+#include "bmp.h"
 
 extern t_scop	g_scop;
 
@@ -121,9 +121,9 @@ static void	load_texture(void)
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, g_scop.gfx.texture);
-    image = SOIL_load_image("scenes/texture.png", &width, &height, 0, SOIL_LOAD_RGB);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
+	image = parse_bmp("scenes/texture.bmp", &width, &height);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image);
+	free(image);
 	glUniform1i(glGetUniformLocation(g_scop.gfx.program, "texture"), 0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -169,7 +169,9 @@ void		launch(void)
 	g_scop.gfx.model_matrix_uni = glGetUniformLocation(g_scop.gfx.program, "modelMatrix");
 
 	g_scop.gfx.texturingUni = glGetUniformLocation(g_scop.gfx.program, "texturing");
+	glUniform1i(g_scop.gfx.texturingUni, g_scop.texturing);
 	g_scop.gfx.lightingUni = glGetUniformLocation(g_scop.gfx.program, "lighting");
+	glUniform1i(g_scop.gfx.lightingUni, g_scop.lighting);
 
 	set_light_uniforms();
 

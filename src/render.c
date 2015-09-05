@@ -8,8 +8,7 @@ extern t_scop	g_scop;
 
 static void	auto_rotate_object()
 {
-	matrix_rotate_x(g_scop.model_matrix, 0.001f);
-	matrix_rotate_z(g_scop.model_matrix, 0.001f);
+	matrix_rotate_y(g_scop.model_matrix, 0.001f);
 }
 
 void		render(void)

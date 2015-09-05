@@ -33,7 +33,7 @@ void	main()
 	normLight = normalize(_toLightVector);
 
 	dotResult = dot(normNormal, normLight);
-	brightness = max(dotResult, 0.4);
+	brightness = max(dotResult, 0.2);
 	diffuse = brightness * lightColor;
 
 	color *= vec4(diffuse, 1.0);

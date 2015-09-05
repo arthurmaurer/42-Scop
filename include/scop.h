@@ -6,6 +6,7 @@
 # include <GLFW/glfw3.h>
 # include <ftlst.h>
 # include "vec3.h"
+# include <Windows.h>
 
 # define WINDOW_WIDTH			800
 # define WINDOW_HEIGHT			600
@@ -92,5 +93,7 @@ char			**ft_split(const char *str, const char *to_avoid);
 void			ft_free_tab(char **tab);
 
 t_light			*create_light(t_vec3 const *position, t_vec3 const *color);
+
+void			triangulate_polygons(void);
 
 #endif
