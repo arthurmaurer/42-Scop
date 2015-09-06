@@ -22,7 +22,6 @@ void		toggle_wireframe_mode(void)
 void		toggle_texturing(void)
 {
 	g_scop.texturing = !g_scop.texturing;
-	glUniform1i(g_scop.gfx.texturingUni, g_scop.texturing);
 }
 
 void		toggle_lighting(void)
@@ -36,20 +35,14 @@ static void	buffer_load_poly(float *buffer, t_polygon const *poly)
 	t_lstiter	iter;
 	unsigned	i;
 	t_vertex	*vertex;
-	t_vec3		color;
-	
-	color.x = (rand() % 1000) / 1000.0f;
-	color.y = (rand() % 1000) / 1000.0f;
-	color.z = (rand() % 1000) / 1000.0f;
 
 	i = 0;
 	init_iter(&iter, poly->vertices, increasing);
 	while (lst_iterator_next(&iter))
 	{
 		vertex = (t_vertex*)iter.data;
-
 		memcpy(buffer + i * 11, &vertex->position, sizeof(t_vec3));
-		memcpy(buffer + i * 11 + 3, &color, sizeof(t_vec3));
+		memcpy(buffer + i * 11 + 3, &vertex->color, sizeof(t_vec3));
 		memcpy(buffer + i * 11 + 6, &vertex->uv, sizeof(t_vec2));
 		memcpy(buffer + i * 11 + 8, &vertex->normal, sizeof(t_vec3));
 		i++;
@@ -121,7 +114,7 @@ static void	load_texture(void)
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, g_scop.gfx.texture);
-	image = parse_bmp("scenes/texture.bmp", &width, &height);
+	image = parse_bmp("scenes/Humvee/tex.bmp", &width, &height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image);
 	free(image);
 	glUniform1i(glGetUniformLocation(g_scop.gfx.program, "texture"), 0);
@@ -164,14 +157,14 @@ void		launch(void)
 
 	g_scop.view_matrix = create_matrix();
 	g_scop.model_matrix = matrix_scale_xyz(NULL, 0.2f);
-	g_scop.proj_matrix = matrix_perspective(deg_to_rad(60.0f), 800.0f / 600.0f, 0.1f, 1000.0f);
+	g_scop.proj_matrix = matrix_perspective(deg_to_rad(60.0f), 800.0f / 600.0f, 0.0f, 1000.0f);
 	g_scop.gfx.mvpUni = glGetUniformLocation(g_scop.gfx.program, "mvp");
 	g_scop.gfx.model_matrix_uni = glGetUniformLocation(g_scop.gfx.program, "modelMatrix");
 
-	g_scop.gfx.texturingUni = glGetUniformLocation(g_scop.gfx.program, "texturing");
-	glUniform1i(g_scop.gfx.texturingUni, g_scop.texturing);
 	g_scop.gfx.lightingUni = glGetUniformLocation(g_scop.gfx.program, "lighting");
 	glUniform1i(g_scop.gfx.lightingUni, g_scop.lighting);
+	g_scop.gfx.textureLevelUni = glGetUniformLocation(g_scop.gfx.program, "textureLevel");
+	glUniform1f(g_scop.gfx.textureLevelUni, g_scop.texture_level);
 
 	set_light_uniforms();
 

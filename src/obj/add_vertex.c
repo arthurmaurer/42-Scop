@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "scop.h"
+#include <float.h>
 #include "ftlst.h"
 #include "obj_internal.h"
 
@@ -20,9 +20,9 @@ static void		fill_vertex_position(const char **tokens, t_vertex *vertex)
 	}
 	else if (index >= 0 && lst_get_size(positions) > (size_t)index)
 	{
-		vertex->position.x = 0;
-		vertex->position.y = 0;
-		vertex->position.z = 0;
+		vertex->position.x = DBL_MAX;
+		vertex->position.y = DBL_MAX;
+		vertex->position.z = DBL_MAX;
 	}
 	else
 		parser_die("Invalid index for a position.");
@@ -46,8 +46,8 @@ static void		fill_vertex_color(const char **tokens, t_vertex *vertex, int nt)
 	}
 	else if (i == DEFAULT_CODE || (i >= 0 && lst_get_size(colors) > (size_t)i))
 	{
-		vertex->uv.x = 0;
-		vertex->uv.y = 0;
+		vertex->uv.x = DBL_MAX;
+		vertex->uv.y = DBL_MAX;
 	}
 	else
 		parser_die("Invalid index for color.");
@@ -70,11 +70,11 @@ static void		fill_vertex_normal(const char **tokens, t_vertex *vertx, int nt)
 		vertx->normal.y = normal->y;
 		vertx->normal.z = normal->z;
 	}
-	else if (i == -9 || (i >= 0 && lst_get_size(normals) > (size_t)i))
+	else if (i == DEFAULT_CODE || (i >= 0 && lst_get_size(normals) > (size_t)i))
 	{
-		vertx->normal.x = 0;
-		vertx->normal.y = 0;
-		vertx->normal.z = 0;
+		vertx->normal.x = DBL_MAX;
+		vertx->normal.y = DBL_MAX;
+		vertx->normal.z = DBL_MAX;
 	}
 	else
 		parser_die("Invalid index for normal.");

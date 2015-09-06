@@ -15,6 +15,7 @@
 
 # include "ftlst.h"
 # include "scop.h"
+
 /*
 ** Struct returned by parse_obj. It contains a list of everything in the file,
 ** where :
@@ -45,5 +46,7 @@ void			obj_print_data(const t_obj_data *data);
 ** Use this function to free all space allocated by obj_parse.
 */
 void			obj_delete_data(t_obj_data **data);
+int				is_vec2_defined(t_vec2 *v);
+int				is_vec3_defined(t_vec3 *v);
 
 #endif

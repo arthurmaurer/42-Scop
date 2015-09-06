@@ -1,7 +1,6 @@
 #include <string.h>
 #include <stdio.h>
 #include "obj_internal.h"
-#include "scop.h"
 
 static int	(*get_parse_func(const char *input))(const char **)
 {
@@ -29,6 +28,7 @@ int			parse_line(char *line)
 	{
 		puts(tokens[0]);
 		ft_free_tab(tokens);
+		return (1);
 		parser_die("Unknown data type.");
 	}
 	(*parse_function)((const char **)(tokens + 1));

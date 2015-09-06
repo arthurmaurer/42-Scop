@@ -8,17 +8,17 @@ in vec3				_toLightVector;
 out vec4			color;
 
 uniform bool		lighting;
-uniform bool		texturing;
+uniform float		textureLevel;
 uniform vec3		lightPosition;
 uniform vec3		lightColor;
 uniform sampler2D	tex;
 
 void	main()
 {
-	if (texturing)
-		color = texture(tex, _uv);
-	else
-		color = vec4(_color, 1.0f);
+	color = vec4(_color, 1.0f);
+
+	if (textureLevel > 0.0f)
+		color = mix(color, texture(tex, _uv), textureLevel);
 
 	if (!lighting)
 		return ;

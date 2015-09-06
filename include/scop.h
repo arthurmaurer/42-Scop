@@ -41,10 +41,10 @@ typedef struct	s_gfx
 	GLuint		vertex_array;
 	GLuint		mvpUni;
 	GLuint		model_matrix_uni;
-	GLuint		texturingUni;
 	GLuint		lightingUni;
 	GLuint		lightPositionUni;
 	GLuint		lightColorUni;
+	GLuint		textureLevelUni;
 	GLuint		posAttrib;
 	GLuint		colAttrib;
 	GLuint		texture;
@@ -60,6 +60,7 @@ typedef struct	s_scop
 	float		*proj_matrix;
 	int			wireframe;
 	int			texturing;
+	float		texture_level;
 	int			lighting;
 	int			auto_rotate;
 	int			user_control;

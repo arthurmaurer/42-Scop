@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-#include "scop.h"
 #include "obj_internal.h"
 
 static int		parse_polygon_components(
