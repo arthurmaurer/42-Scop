@@ -2,7 +2,6 @@
 #include "scop.h"
 #include "matrix.h"
 #include <stdio.h>
-#include <Windows.h>
 
 extern t_scop	g_scop;
 
@@ -21,11 +20,14 @@ void	handle_keys(GLFWwindow *window, int button, int scancode, int action, int m
 		else if (button == GLFW_KEY_L)
 			toggle_lighting();
 	}
+	(void)scancode;
+	(void)mods;
 }
 
 void	handle_scroll(GLFWwindow *window, double scroll_x, double scroll_y)
 {
 	matrix_scale_xyz(g_scop.model_matrix, 1.0f + (float)scroll_y / 10);
+	(void)window;
 	(void)scroll_x;
 }
 
@@ -48,6 +50,7 @@ void	handle_mouse_move(GLFWwindow *window, double pos_x, double pos_y)
 
 	g_scop.prev_mouse_pos.x = (float)pos_x;
 	g_scop.prev_mouse_pos.y = (float)pos_y;
+	(void)window;
 }
 
 void			handle_mouse_button(GLFWwindow *window, int button, int action, int mods)
@@ -65,4 +68,6 @@ void			handle_mouse_button(GLFWwindow *window, int button, int action, int mods)
 			g_scop.prev_mouse_pos.y = -1.0f;
 		}
 	}
+	(void)window;
+	(void)mods;
 }

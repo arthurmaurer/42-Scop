@@ -10,10 +10,10 @@ GLFWwindow	*create_window(void)
 	if (!glfwInit())
 		die("Could not init glfw.");
 
-	glfwWindowHint(GLFW_SAMPLES, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	// glfwWindowHint(GLFW_SAMPLES, 4);
+	// glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	// glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	// glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	window = glfwCreateWindow(1024, 768, "Scop", NULL, NULL);
 
@@ -21,6 +21,7 @@ GLFWwindow	*create_window(void)
 		die("Could not create the window.");
 
 	glfwMakeContextCurrent(window);
+	// printf("%s\n", glGetString ( GL_VERSION ));
 
 	glfwSetKeyCallback(window, handle_keys);
 	glfwSetScrollCallback(window, handle_scroll);

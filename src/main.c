@@ -1,12 +1,9 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <stdlib.h>
-#include <Windows.h>
 #include <stdio.h>
 #include "scop.h"
 #include <math.h>
 #include "matrix.h"
-#include "obj\obj.h"
+#include "obj/obj.h"
 #include <time.h>
 #include "bmp.h"
 

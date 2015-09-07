@@ -3,7 +3,6 @@
 #include "matrix.h"
 #include <stdlib.h>
 #include <string.h>
-#include <Windows.h>
 #include <stdio.h>
 #include "bmp.h"
 
@@ -140,8 +139,8 @@ void		launch(void)
 	if (g_scop.gfx.window == NULL)
 		die("Could not create the window.");
 
-	glGenVertexArrays(1, &g_scop.gfx.vertex_array);
-	glBindVertexArray(g_scop.gfx.vertex_array);
+	glGenVertexArraysAPPLE(1, &g_scop.gfx.vertex_array);
+	glBindVertexArrayAPPLE(g_scop.gfx.vertex_array);
 
 	build_vertex_buffer();
 
@@ -181,7 +180,7 @@ void		launch(void)
 void		destroy(void)
 {
 	glDeleteBuffers(1, &g_scop.gfx.vbo);
-	glDeleteVertexArrays(1, &g_scop.gfx.vertex_array);
+	glDeleteVertexArraysAPPLE(1, &g_scop.gfx.vertex_array);
 	glDeleteProgram(g_scop.gfx.program);
 	glfwTerminate();
 }

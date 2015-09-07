@@ -2,11 +2,15 @@
 #ifndef _SCOP_H
 # define _SCOP_H
 
+# define GLFW_INCLUDE_GLU
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
 # include <ftlst.h>
+# include <stdio.h>
 # include "vec3.h"
-# include <Windows.h>
+# ifdef _WIN32
+	# include <Windows.h>
+# endif
 
 # define WINDOW_WIDTH			800
 # define WINDOW_HEIGHT			600

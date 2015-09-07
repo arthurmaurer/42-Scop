@@ -2,7 +2,6 @@
 #include "scop.h"
 #include "matrix.h"
 #include <stdio.h>
-#include <Windows.h>
 
 extern t_scop	g_scop;
 

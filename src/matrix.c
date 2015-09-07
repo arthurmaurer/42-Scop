@@ -14,7 +14,7 @@ float	*matrix_perspective(float fov, float aspect, float near_plane, float far_p
 {
 	GLfloat	*matrix;
 	float	tan_half_fov;
-	
+
 	matrix = create_matrix();
 	tan_half_fov = tanf(fov / 2.0f);
 	matrix[0] = 1.0f / (aspect * tan_half_fov);
@@ -87,7 +87,7 @@ float	*matrix_mult_m(float *dest, unsigned n, ...)
 	va_list		list;
 	unsigned	i;
 	float		*matrix;
-	
+
 	va_start(list, n);
 	i = 0;
 	while (i < n)
@@ -103,14 +103,22 @@ float	*matrix_mult_m(float *dest, unsigned n, ...)
 
 void	matrix_debug(float const *matrix)
 {
+	#ifdef _WIN32
 	char	buffer[300] = { 0 };
 
 	sprintf(buffer, "%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n",
-		matrix[0], matrix[1], matrix[2], matrix[3], 
-		matrix[4], matrix[5], matrix[6], matrix[7], 
-		matrix[8], matrix[9], matrix[10], matrix[11], 
+		matrix[0], matrix[1], matrix[2], matrix[3],
+		matrix[4], matrix[5], matrix[6], matrix[7],
+		matrix[8], matrix[9], matrix[10], matrix[11],
 		matrix[12], matrix[13], matrix[14], matrix[15]);
 	OutputDebugString(buffer);
+	#else
+	printf("%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n",
+		matrix[0], matrix[1], matrix[2], matrix[3],
+		matrix[4], matrix[5], matrix[6], matrix[7],
+		matrix[8], matrix[9], matrix[10], matrix[11],
+		matrix[12], matrix[13], matrix[14], matrix[15]);
+	#endif
 }
 
 float	*matrix_translate(float *dest, t_vec3 const *amount)

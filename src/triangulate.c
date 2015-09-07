@@ -7,7 +7,6 @@ extern t_scop	g_scop;
 static void	triangulate_polygon(t_polygon *poly)
 {
 	unsigned	i;
-	t_vertex	*vertex;
 	t_polygon	*new_poly;
 	t_vertex	*first_vertex;
 

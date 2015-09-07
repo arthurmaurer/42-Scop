@@ -1,11 +1,8 @@
-#version 400 core
 
-in vec3				_color;
-in vec2				_uv;
-in vec3				_normal;
-in vec3				_toLightVector;
-
-out vec4			color;
+varying vec3				_color;
+varying vec2				_uv;
+varying vec3				_normal;
+varying vec3				_toLightVector;
 
 uniform bool		lighting;
 uniform float		textureLevel;
@@ -15,10 +12,10 @@ uniform sampler2D	tex;
 
 void	main()
 {
-	color = vec4(_color, 1.0f);
+	vec4 color = vec4(_color, 1.0);
 
-	if (textureLevel > 0.0f)
-		color = mix(color, texture(tex, _uv), textureLevel);
+	if (textureLevel > 0.0)
+		color = mix(color, texture2D(tex, _uv), textureLevel);
 
 	if (!lighting)
 		return ;
@@ -37,4 +34,6 @@ void	main()
 	diffuse = brightness * lightColor;
 
 	color *= vec4(diffuse, 1.0);
+
+	gl_FragColor = color;
 }
