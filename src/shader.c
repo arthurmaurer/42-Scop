@@ -1,12 +1,12 @@
 
 #include <fcntl.h>
+#ifdef _WIN32
 #include <io.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "scop.h"
-
-#define _CRT_SECURE_NO_DEPRECATE
 
 static char		*read_file(char const *path)
 {
@@ -38,7 +38,7 @@ static void		compile_shader(GLuint shader_id, char const *code)
 	length = strlen(code);
 	glShaderSource(shader_id, 1, &code, &length);
 	glCompileShader(shader_id);
-	
+
 	result = GL_FALSE;
 	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &result);
 	glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_length);
@@ -65,7 +65,7 @@ static GLuint	create_program(GLuint vertex_shader, GLuint fragment_shader)
 	result = GL_FALSE;
 	glGetProgramiv(program, GL_LINK_STATUS, &result);
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_length);
-	
+
 	if (result == GL_FALSE)
 	{
 		glGetProgramInfoLog(program, 200, NULL, log);
@@ -84,7 +84,7 @@ GLuint			load_shaders(char const *vertex_shader_path, char const *fragment_shade
 
 	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-	
+
 	vertex_shader_code = read_file(vertex_shader_path);
 	if (vertex_shader_code == NULL)
 		die("Could not read the vertex shader file.");

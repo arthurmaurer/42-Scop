@@ -2,19 +2,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "vec3.h"
 #include "matrix.h"
 
-#ifdef _WIN32
+#ifndef M_PI
 	#define M_PI 3.14159265358979323846
-	#include <Windows.h>
 #endif
 
 int		die(char const *message)
 {
-	//printf("%s\n", message);
+	#ifdef _WIN32
 	OutputDebugString(message);
 	OutputDebugString("\n");
+	#else
+		printf("%s\n", message);
+	#endif
 	exit(EXIT_FAILURE);
 	return (0);
 }
@@ -52,7 +55,7 @@ float	*look_at(float *matrix, t_vec3 const *eye, t_vec3 const *center, t_vec3 co
 	vec3_copy(&u, &s);
 	vec3_cross(&u, &f);
 
-	
+
 	matrix[0] = s.x;
 	matrix[4] = s.y;
 	matrix[8] = s.z;

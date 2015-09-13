@@ -20,5 +20,4 @@ float			*matrix_rotate_x(float *dest, float amount);
 float			*matrix_rotate_y(float *dest, float amount);
 float			*matrix_rotate_z(float *dest, float amount);
 
-
 #endif

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned char	*parse_bmp(char const *pathname, unsigned *width, unsigned *height)
+unsigned char	*parse_bmp(char const *pathname, int *width, int *height)
 {
 	FILE				*file;
 	t_bmp_header		header;
@@ -11,9 +11,9 @@ unsigned char	*parse_bmp(char const *pathname, unsigned *width, unsigned *height
 	unsigned char		*data;
 	unsigned			to_read;
 	unsigned			size_read;
-	
+
 	file = fopen(pathname, "r+b");
-	
+
 	if (file == NULL)
 		return (NULL);
 

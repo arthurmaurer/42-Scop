@@ -3,7 +3,6 @@
 #include "matrix.h"
 #include <stdlib.h>
 #include <string.h>
-#include <Windows.h>
 #include <stdio.h>
 #include "bmp.h"
 
@@ -114,7 +113,7 @@ static void	load_texture(void)
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, g_scop.gfx.texture);
-	image = parse_bmp("scenes/Humvee/tex.bmp", &width, &height);
+	image = parse_bmp("scenes/texture.bmp", &width, &height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image);
 	free(image);
 	glUniform1i(glGetUniformLocation(g_scop.gfx.program, "texture"), 0);
