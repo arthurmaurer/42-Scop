@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   triangulate.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/14 21:35:57 by amaurer           #+#    #+#             */
+/*   Updated: 2015/09/20 00:04:01 by amaurer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "scop.h"
 #include <stdlib.h>
@@ -24,7 +35,7 @@ static void	triangulate_polygon(t_polygon *poly)
 	}
 }
 
-void	triangulate_polygons(void)
+void		triangulate_polygons(void)
 {
 	t_lstiter	it;
 	t_polygon	*poly;
@@ -33,7 +44,6 @@ void	triangulate_polygons(void)
 	while (lst_iterator_next(&it))
 	{
 		poly = (t_polygon*)it.data;
-
 		if (poly->vertices->size > 3)
 		{
 			triangulate_polygon(poly);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/14 21:35:57 by amaurer           #+#    #+#             */
+/*   Updated: 2015/09/20 00:04:35 by amaurer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "obj_internal.h"
 
@@ -23,7 +35,7 @@ int			token_to_int(const char **tokens, int index)
 	while (j <= index)
 	{
 		if (!tokens[j++])
-			return DEFAULT_CODE;
+			return (DEFAULT_CODE);
 	}
 	ret = atoi(tokens[index]) - 1;
 	if (ret < 0)

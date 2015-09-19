@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bmp.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/14 21:35:57 by amaurer           #+#    #+#             */
+/*   Updated: 2015/09/20 00:30:19 by amaurer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef _BMP_H
 # define _BMP_H
 
-#pragma pack(1)
+# pragma pack(1)
+
 typedef struct	s_bmp_header
 {
 	char		type[2];
@@ -25,9 +37,8 @@ typedef struct	s_bmp_dib_header
 	int			vertical_resolution;
 	int			colors;
 	int			important_colors;
-	char	lol;
 }				t_bmp_dib_header;
-#pragma pack()
+# pragma pack()
 
 unsigned char	*parse_bmp(char const *pathname, int *width, int *height);
 

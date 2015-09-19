@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_polygon.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/14 21:35:57 by amaurer           #+#    #+#             */
+/*   Updated: 2015/09/20 00:15:15 by amaurer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <string.h>
 #include "obj_internal.h"
@@ -45,4 +57,3 @@ int				parse_polygon(const char **tokens)
 	lst_push_back(g_current_data->polygons, new_polygon);
 	return (1);
 }
-

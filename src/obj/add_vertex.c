@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_vertex.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/14 21:35:57 by amaurer           #+#    #+#             */
+/*   Updated: 2015/09/19 23:22:17 by amaurer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <float.h>
 #include "ftlst.h"
@@ -20,9 +32,9 @@ static void		fill_vertex_position(const char **tokens, t_vertex *vertex)
 	}
 	else if (index >= 0 && lst_get_size(positions) > (size_t)index)
 	{
-		vertex->position.x = DBL_MAX;
-		vertex->position.y = DBL_MAX;
-		vertex->position.z = DBL_MAX;
+		vertex->position.x = FLT_MAX;
+		vertex->position.y = FLT_MAX;
+		vertex->position.z = FLT_MAX;
 	}
 	else
 		parser_die("Invalid index for a position.");
@@ -46,8 +58,8 @@ static void		fill_vertex_color(const char **tokens, t_vertex *vertex, int nt)
 	}
 	else if (i == DEFAULT_CODE || (i >= 0 && lst_get_size(colors) > (size_t)i))
 	{
-		vertex->uv.x = DBL_MAX;
-		vertex->uv.y = DBL_MAX;
+		vertex->uv.x = FLT_MAX;
+		vertex->uv.y = FLT_MAX;
 	}
 	else
 		parser_die("Invalid index for color.");
@@ -72,9 +84,9 @@ static void		fill_vertex_normal(const char **tokens, t_vertex *vertx, int nt)
 	}
 	else if (i == DEFAULT_CODE || (i >= 0 && lst_get_size(normals) > (size_t)i))
 	{
-		vertx->normal.x = DBL_MAX;
-		vertx->normal.y = DBL_MAX;
-		vertx->normal.z = DBL_MAX;
+		vertx->normal.x = FLT_MAX;
+		vertx->normal.y = FLT_MAX;
+		vertx->normal.z = FLT_MAX;
 	}
 	else
 		parser_die("Invalid index for normal.");

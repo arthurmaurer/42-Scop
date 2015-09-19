@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   obj_internal.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/14 21:35:57 by amaurer           #+#    #+#             */
+/*   Updated: 2015/09/20 00:33:03 by amaurer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef OBJ_INTERNAL
-# define OBJ_INTERNAL
+#ifndef OBJ_INTERNAL_H
+# define OBJ_INTERNAL_H
 
 # include "obj.h"
 # include "obj_tokens.h"

@@ -6,7 +6,7 @@
 #    By: amaurer <amaurer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/11 01:49:54 by amaurer           #+#    #+#              #
-#    Updated: 2015/09/13 22:45:15 by amaurer          ###   ########.fr        #
+#    Updated: 2015/09/20 00:23:40 by amaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,14 @@ NAME		=	scop
 BIN_NAME	=	$(BIN_DIR)$(NAME)
 SRC			=	src/control.c \
 				src/gfx.c \
+				src/gfx_toggles.c \
+				src/gfx_attribs.c \
+				src/gfx_buffer.c \
 				src/light.c \
 				src/main.c \
 				src/matrix.c \
+				src/matrix2.c \
+				src/matrix3.c \
 				src/obj/add_vertex.c \
 				src/obj/is_property_defined.c \
 				src/obj/obj_delete_data.c \
@@ -40,10 +45,17 @@ SRC			=	src/control.c \
 				src/obj/tokens_utils.c \
 				src/render.c \
 				src/shader.c \
-				src/tga/parse_bmp.c \
+				src/parse_bmp.c \
 				src/triangulate.c \
 				src/util.c \
+				src/util2.c \
 				src/vec3.c \
+				src/vec32.c \
+				src/vec33.c \
+				src/vec34.c \
+				src/vec35.c \
+				src/vec36.c \
+				src/input_file.c \
 				src/window.c
 
 OBJ			=	$(subst $(SRC_DIR), $(OBJ_DIR), $(SRC:.c=.o))
